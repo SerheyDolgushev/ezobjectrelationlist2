@@ -394,9 +394,11 @@
             <td>--published--</td>
             <td class="priority"><input size="2" type="text" name="{$attribute_base}_priority[{$attribute.id}][]" value="0" /></td>
             {if ezini_hasvariable( concat( 'RelationAttributes_', $c_class.identifier ), $attribute.contentclass_attribute_identifier, 'ezobjectrelationlist2.ini' )}
+                {def $default_values = ezini( concat( 'RelationAttributes_', $c_class.identifier ), 'DefaultValues', 'ezobjectrelationlist2.ini' )}
                 {foreach ezini( concat( 'RelationAttributes_', $c_class.identifier ), $attribute.contentclass_attribute_identifier, 'ezobjectrelationlist2.ini' ) as $relation_attr => $name}
-                <td><input size="2" type="text" name="{$attribute_base}_relation_extra_data_{$attribute.id}[no_relation][{$relation_attr}]" value="" /></td>
+                <td><input size="2" type="text" name="{$attribute_base}_relation_extra_data_{$attribute.id}[no_relation][{$relation_attr}]" value="{if $default_values[$relation_attr]}{$default_values[$relation_attr]}{/if}" /></td>
                 {/foreach}
+                {undef $default_values}
             {/if}
           </tr>
         {/if}
