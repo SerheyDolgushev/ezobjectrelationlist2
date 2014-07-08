@@ -352,8 +352,10 @@
               {def $object = fetch( content, object, hash( object_id, $item.contentobject_id ) )}
               <tr class="{$style}">
                 {* Remove. *}
-                <td><input type="checkbox" name="{$attribute_base}_selection[{$attribute.id}][]" value="{$item.contentobject_id}" />
-                <input type="hidden" name="{$attribute_base}_data_object_relation_list_{$attribute.id}[]" value="{$item.contentobject_id}" /></td>
+                <td>
+                    <input type="hidden" name="{$attribute_base}_data_object_relation_list_{$attribute.id}[]" value="{$item.contentobject_id}" />
+                    <input type="checkbox" name="{$attribute_base}_selection[{$attribute.id}][]" value="{$item.contentobject_id}" />
+                </td>
 
                 {* Name *}
                 <td>{$object.name|wash()}</td>
@@ -386,8 +388,10 @@
             {/foreach}
         {else}
           <tr class="bgdark">
-            <td><input type="checkbox" name="{$attribute_base}_selection[{$attribute.id}][]" value="--id--" />
-            <input type="hidden" name="{$attribute_base}_data_object_relation_list_{$attribute.id}[]" value="no_relation" /></td>
+            <td>
+                <input type="hidden" name="{$attribute_base}_data_object_relation_list_{$attribute.id}[]" value="no_relation" />
+                <input type="checkbox" name="{$attribute_base}_selection[{$attribute.id}][]" value="--id--" />
+            </td>
             <td>--name--</td>
             <td>--class-name--</td>
             <td>--section-name--</td>

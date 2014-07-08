@@ -90,8 +90,9 @@ jQuery(function( $ )
             priority.val( parseInt( priority.val() ) + 1 );
             
             var oldID = tr.find('td:first-child input').val();
-            $.each(tr.find('[name*="[relation_extra_data]"]'), function( index, extraDataEl ) {
+            $.each(tr.find('[name*="relation_extra_data"]'), function( index, extraDataEl ) {
                 extraDataEl = $( extraDataEl );
+                console.log( oldID, id );
                 extraDataEl.attr( 'name', extraDataEl.attr( 'name' ).replace( '[' + oldID + ']', '[' + id + ']' ) );
             });
             
