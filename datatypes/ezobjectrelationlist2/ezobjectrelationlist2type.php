@@ -31,9 +31,8 @@ class eZObjectRelationList2Type extends eZObjectRelationListType {
                 $extraData = $relationExtraData[$relation['contentobject_id']];
             }
 
-            $content['relation_list'][$key] = array_merge( $extraData, $relation );
+            $content['relation_list'][$key] = array_merge( $relation, $extraData );
         }
-
         $contentObjectAttribute->setContent( $content );
 
         return true;
