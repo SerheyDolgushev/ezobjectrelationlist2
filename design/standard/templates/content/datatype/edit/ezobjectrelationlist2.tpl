@@ -3,7 +3,8 @@
      class_list=fetch( class, list, hash( class_filter, $class_content.class_constraint_list ) )
      can_create=true()
      new_object_initial_node_placement=false()
-     browse_object_start_node=false()}
+     browse_object_start_node=false()
+     attr_templates=array()}
 
 {if $class_content.selection_type|ne( 0 )} {* If current selection mode is not 'browse'. *}
         {default attribute_base=ContentObjectAttribute}
@@ -378,9 +379,19 @@
                 <td class="priority"><input size="2" type="text" name="{$attribute_base}_priority[{$attribute.id}][]" value="{$item.priority}" /></td>
 
                 {* Relation data attributes *}
+                {set $attr_templates = array()}
+                {if ezini_hasvariable( concat( 'RelationAttributes_', $c_class.identifier ), 'EditTemplates', 'ezobjectrelationlist2.ini' )}
+                    {set $attr_templates = ezini( concat( 'RelationAttributes_', $c_class.identifier ), 'EditTemplates', 'ezobjectrelationlist2.ini' )}
+                {/if}
                 {if ezini_hasvariable( concat( 'RelationAttributes_', $c_class.identifier ), $attribute.contentclass_attribute_identifier, 'ezobjectrelationlist2.ini' )}
                     {foreach ezini( concat( 'RelationAttributes_', $c_class.identifier ), $attribute.contentclass_attribute_identifier, 'ezobjectrelationlist2.ini' ) as $relation_attr => $name}
-                    <td><input size="2" type="text" name="{$attribute_base}_relation_extra_data_{$attribute.id}[{$item.contentobject_id}][{$relation_attr}]" value="{if $item[$relation_attr]}{$item[$relation_attr]}{/if}" /></td>
+                    <td>
+                        {if is_set( $attr_templates[ $relation_attr ] )}
+                            {include uri=concat( 'design:', $attr_templates[ $relation_attr ] )}
+                        {else}
+                            <input size="2" type="text" name="{$attribute_base}_relation_extra_data_{$attribute.id}[{$item.contentobject_id}][{$relation_attr}]" value="{if $item[$relation_attr]}{$item[$relation_attr]}{/if}" />
+                        {/if}    
+                    </td>
                     {/foreach}
                 {/if}
               </tr>
